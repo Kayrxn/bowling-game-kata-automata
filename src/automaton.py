@@ -29,5 +29,8 @@ class Automaton:
         
         return total_score
 
-    def _is_strike(self, roll_index):
+    def _is_strike(self, roll_index): #verifica si el lanzamiento es un strike
         return self.rolls[roll_index] == 10
+    
+    def _is_spare(self, roll_index): #verifica si la suma de dos lanzamientos es igual a 10
+        return self.rolls[roll_index] + self.rolls[roll_index + 1] == 10 
