@@ -28,3 +28,6 @@ class Automaton:
                 roll_index += 2
         
         return total_score
+
+    def _is_strike(self, roll_index):
+        return self.rolls[roll_index] == 10
