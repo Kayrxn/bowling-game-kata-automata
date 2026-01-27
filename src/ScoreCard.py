@@ -1,4 +1,4 @@
-class score_card:
+class ScoreCard:
     def __init__(self, score_string):
         self.string = score_string
         self.rolls = self._parse_rolls()
