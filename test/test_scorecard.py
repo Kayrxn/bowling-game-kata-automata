@@ -1,32 +1,16 @@
+import pytest
 from src.ScoreCard import ScoreCard
 
-def test_hitting_pins_regular():
-    pins = "12345123451234512345" 
-    assert ScoreCard(pins).score() == 60
+cases = [
+    pytest.param("12345123451234512345", 60, marks=[pytest.mark.scorecard, pytest.mark.regular], id="regular"),
+    pytest.param("9-9-9-9-9-9-9-9-9-9-", 90, marks=[pytest.mark.scorecard, pytest.mark.zeros], id="zeros"),
+    pytest.param("5/5/5/5/5/5/5/5/5/5/5", 150, marks=[pytest.mark.scorecard, pytest.mark.spare], id="spare"),
+    pytest.param("X9-9-9-9-9-9-9-9-9-", 100, marks=[pytest.mark.scorecard, pytest.mark.strike], id="strike"),
+    pytest.param("XXXXXXXXXXXX", 300, marks=[pytest.mark.scorecard, pytest.mark.perfect], id="perfect"),
+    pytest.param("8/549-XX5/53639/9/X", 149, marks=[pytest.mark.scorecard, pytest.mark.complex], id="complex"),
+]
 
 
-def test_symbol_zero():
-    pins = "9-9-9-9-9-9-9-9-9-9-"  
-    assert ScoreCard(pins).score() == 90
-
-
-def test_spare_normal():
-    pins = "5/5/5/5/5/5/5/5/5/5/5"
-    assert ScoreCard(pins).score() == 150
-
-
-def test_strike_normal():
-    # X (10+9+0) + 9- (9) ...
-    pins = "X9-9-9-9-9-9-9-9-9-"  
-    assert ScoreCard(pins).score() == 100
-
-
-def test_perfect_game():
-    pins = "XXXXXXXXXXXX"  
-    assert ScoreCard(pins).score() == 300
-
-
-def test_complex_game():
-    # Caso complejo del archivo original
-    pins = "8/549-XX5/53639/9/X" 
-    assert ScoreCard(pins).score() == 149
+@pytest.mark.parametrize("pins,expected", cases)
+def test_scorecard(pins, expected):
+    assert ScoreCard(pins).score() == expected
