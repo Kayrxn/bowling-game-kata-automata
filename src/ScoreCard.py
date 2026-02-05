@@ -5,9 +5,9 @@ class ScoreCard:
     #--------------------------------------------------------------------------
     def __init__(self, score_card):
         self.card = score_card
-        # parseo directo de la cadena a lista de tiradas (X, -, / interpretados)
-        self.rolls = []
-        for char in self.card:      #recorre cada carácter en la cadena de tiradas y lo convierte al valor que toca.
+
+        self.rolls = []             #almaceno las tiradas (ya parseadas) en una lista 
+        for char in self.card:      #recorre cada carácter en la scorecard
             if char == 'X':         #si el carácter es 'X', es 10 (strike)
                 self.rolls.append(10)
             elif char == '-':       #si el carácter es '-', es 0 (foul)
