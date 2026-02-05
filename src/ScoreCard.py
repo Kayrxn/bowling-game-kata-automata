@@ -3,27 +3,19 @@ class ScoreCard:
     #--------------------------------------------------------------------------
     #constructor que recibe una cadena de tiradas y la convierte en una lista de enteros para luego
     #--------------------------------------------------------------------------
-    def __init__(self, score_string):
-        self.string = score_string
-        self.rolls = self._parse_rolls()
-
-
-    #--------------------------------------------------------------------------
-    #convierte la cadena de tiradas en una lista de enteros. Interpreta 'X' como 10, '-' como 0 y '/' como spare.
-    #--------------------------------------------------------------------------
-
-    def _parse_rolls(self):
-        rolls = []
-        for char in self.string:    #recorre cada carácter en la cadena de tiradas y lo convierte a su valor numérico correspondiente.
-            if char == 'X':         #si el carácter es 'X', se interpreta como un strike y se agrega 10 a la lista de tiradas.
-                rolls.append(10)
-            elif char == '-':       #si el carácter es '-', se interpreta como una tirada sin bolos derribados y se agrega 0 a la lista de tiradas.
-                rolls.append(0)
-            elif char == '/':       #si el carácter es '/', se interpreta como un spare y se agrega a la lista de tiradas el número de bolos necesarios para completar 10 en el frame actual.
-                rolls.append(10 - rolls[-1])
+    def __init__(self, score_card):
+        self.card = score_card
+        # parseo directo de la cadena a lista de tiradas (X, -, / interpretados)
+        self.rolls = []
+        for char in self.card:      #recorre cada carácter en la cadena de tiradas y lo convierte al valor que toca.
+            if char == 'X':         #si el carácter es 'X', es 10 (strike)
+                self.rolls.append(10)
+            elif char == '-':       #si el carácter es '-', es 0 (foul)
+                self.rolls.append(0)
+            elif char == '/':       #si el carácter es '/', es el número de bolos que quedan en pie después de la primera (spare)
+                self.rolls.append(10 - self.rolls[-1])
             else:                   #si el carácter es un número, se convierte a entero y se agrega a la lista de tiradas.
-                rolls.append(int(char))
-        return rolls
+                self.rolls.append(int(char))
 
 
     #--------------------------------------------------------------------------
@@ -32,22 +24,21 @@ class ScoreCard:
 
     def score(self):
         total = 0
-        roll_index = 0
+        roll = 0
 
         for _ in range(10):                     #se itera 10 veces (10 frames)
 
-            if self._is_strike(roll_index):                     #si es un strike, se suma 10 más la bonificación de las siguientes dos tiradas.
-                total += 10 + self._strike_bonus(roll_index)    #la bonificación de un strike se calcula sumando las siguientes dos tiradas.
-                roll_index += 1
-            elif self._is_spare(roll_index):                    #si es un spare, se suma 10 más la bonificación de la siguiente tirada.
-                total += 10 + self._spare_bonus(roll_index)
-                roll_index += 2
+            if self._is_strike(roll):                     #si es un strike, se suma 10 más la bonificación de las siguientes dos tiradas.
+                total += 10 + self._strike_bonus(roll)    #la bonificación de un strike se calcula sumando las siguientes dos tiradas.
+                roll += 1
+            elif self._is_spare(roll):                    #si es un spare, se suma 10 más la bonificación de la siguiente tirada.
+                total += 10 + self._spare_bonus(roll)
+                roll += 2
             else:                                               #si no es ni strike ni spare, se suman las dos tiradas del frame.
-
-                first = self.rolls[roll_index]                                                      #la primera tirada del frame
-                second = self.rolls[roll_index + 1] if roll_index + 1 < len(self.rolls) else 0      #la segunda tirada del frame, si existe
+                first = self.rolls[roll]                                                      #la primera tirada del frame
+                second = self.rolls[roll + 1] if roll + 1 < len(self.rolls) else 0      #la segunda tirada del frame, si existe
                 total += first + second                                                             #se suman las dos tiradas del frame
-                roll_index += 2
+                roll += 2
 
         return total
 
