@@ -18,18 +18,11 @@ Este repositorio contiene una resolución del "Bowling Game Kata". El objetivo d
 
 **Enfoque principal**
 
-- Simplifiqué el diseño para que toda la lógica de cálculo resida en una única clase: `ScoreCard`.
-- `ScoreCard` ahora se encarga de parsear la cadena de lanzamientos y calcular la puntuación total mediante el método `score()`.
+- Simplifiqué el diseño de lógica en una única clase: `ScoreCard`.
+- `ScoreCard` se encarga de parsear la cadena de lanzamientos y calcular la puntuación total mediante `score()`.
 
 **Estructura del código**
 
 - `src/ScoreCard.py`: contiene la clase `ScoreCard` con la lógica de parsing y cálculo de puntuación.
-- `src/automaton.py`: eliminado (la lógica se integró en `ScoreCard`). Si alguien intenta importarlo, lanzará un error con la orientación a usar `ScoreCard`.
-- `test/test_automaton.py`: actualizado para usar directamente `ScoreCard` (se mantiene el nombre del archivo por compatibilidad).
-
-**Decisiones de diseño**
-
-- Centralicé la lógica en `ScoreCard` para reducir la complejidad y facilitar las pruebas y el mantenimiento.
-- Mantengo tests que documentan el comportamiento esperado (casos simples, spares, strikes y perfect game).
-
+- `tests/test_score_card.py`: contiene pruebas unitarias para validar el código.
 
