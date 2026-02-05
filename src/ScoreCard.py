@@ -35,8 +35,6 @@ class ScoreCard:
         roll_index = 0
 
         for _ in range(10):                     #se itera 10 veces (10 frames)
-            if roll_index >= len(self.rolls):   #si no hay suficientes tiradas para completar los frames, ahí te quedas.
-                break
 
             if self._is_strike(roll_index):                     #si es un strike, se suma 10 más la bonificación de las siguientes dos tiradas.
                 total += 10 + self._strike_bonus(roll_index)    #la bonificación de un strike se calcula sumando las siguientes dos tiradas.
