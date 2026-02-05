@@ -83,7 +83,6 @@ def test_one_strike_in_extra_roll():
 
 @pytest.mark.extra_rolls
 def test_spare_in_extra_roll():
-    # spare in extra roll
     pins = "X5/X5/XX5/--5/X5/"
     total = 175
     score_card = ScoreCard(pins)
