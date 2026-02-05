@@ -1,5 +1,5 @@
 import pytest
-from src.ScoreCard import ScoreCard
+from src.scorecard import ScoreCard
 
 @pytest.mark.state_n
 def test_hitting_pins_regular():

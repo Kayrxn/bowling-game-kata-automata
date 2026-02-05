@@ -17,9 +17,9 @@ class ScoreCard:
         for char in self.string:    #recorre cada carácter en la cadena de tiradas y lo convierte a su valor numérico correspondiente.
             if char == 'X':         #si el carácter es 'X', se interpreta como un strike y se agrega 10 a la lista de tiradas.
                 rolls.append(10)
-            elif char == '-':       #si el carácter es '-', se interpreta como una tirada sin pinos derribados y se agrega 0 a la lista de tiradas.
+            elif char == '-':       #si el carácter es '-', se interpreta como una tirada sin bolos derribados y se agrega 0 a la lista de tiradas.
                 rolls.append(0)
-            elif char == '/':       #si el carácter es '/', se interpreta como un spare y se agrega a la lista de tiradas el número de pinos necesarios para completar 10 en el frame actual.
+            elif char == '/':       #si el carácter es '/', se interpreta como un spare y se agrega a la lista de tiradas el número de bolos necesarios para completar 10 en el frame actual.
                 rolls.append(10 - rolls[-1])
             else:                   #si el carácter es un número, se convierte a entero y se agrega a la lista de tiradas.
                 rolls.append(int(char))
